@@ -37,15 +37,13 @@ const useSocket = (
         let embeddingModelProvider = localStorage.getItem(
           'embeddingModelProvider',
         );
-
-        const providers = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/models`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
+        const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/models`);
+        url.searchParams.append('cache', '1');
+        const providers = await fetch(url, {
+          headers: {
+            'Content-Type': 'application/json',
           },
-        ).then(async (res) => await res.json());
+        }).then(async (res) => await res.json());
 
         if (
           !chatModel ||
@@ -214,15 +212,14 @@ const loadMessages = async (
   setFocusMode: (mode: string) => void,
   setNotFound: (notFound: boolean) => void,
 ) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/chats/${chatId}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+  const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/chats/${chatId}`);
+  url.searchParams.append('cache', '1');
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+  });
 
   if (res.status === 404) {
     setNotFound(true);

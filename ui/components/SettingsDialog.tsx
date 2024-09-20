@@ -88,7 +88,9 @@ const SettingsDialog = ({
     if (isOpen) {
       const fetchConfig = async () => {
         setIsLoading(true);
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/config`, {
+        const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/config`);
+        url.searchParams.append('cache', '1');
+        const res = await fetch(url, {
           headers: {
             'Content-Type': 'application/json',
           },

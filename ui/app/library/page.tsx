@@ -20,8 +20,9 @@ const Page = () => {
   useEffect(() => {
     const fetchChats = async () => {
       setLoading(true);
-
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chats`, {
+      const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/chats`);
+      //url.searchParams.append('cache', '1');
+      const res = await fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
