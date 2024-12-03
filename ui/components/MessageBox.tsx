@@ -81,17 +81,6 @@ const MessageBox = ({
             ref={dividerRef}
             className="flex flex-col space-y-6 w-full lg:w-9/12"
           >
-            {message.sources && message.sources.length > 0 && (
-              <div className="flex flex-col space-y-2">
-                <div className="flex flex-row items-center space-x-2">
-                  <BookCopy className="text-black dark:text-white" size={20} />
-                  <h3 className="text-black dark:text-white font-medium text-xl">
-                    Sources
-                  </h3>
-                </div>
-                <MessageSources sources={message.sources} />
-              </div>
-            )}
             <div className="flex flex-col space-y-2">
               <div className="flex flex-row items-center space-x-2">
                 <Disc3
@@ -150,6 +139,20 @@ const MessageBox = ({
                   <>
                     <div className="h-px w-full bg-light-secondary dark:bg-dark-secondary" />
                     <div className="flex flex-col space-y-3 text-black dark:text-white">
+                      {message.sources && message.sources.length > 0 && (
+                        <div className="flex flex-col space-y-2">
+                          <div className="flex flex-row items-center space-x-2">
+                            <BookCopy
+                              className="text-black dark:text-white"
+                              size={20}
+                            />
+                            <h3 className="text-black dark:text-white font-medium text-xl">
+                              Sources
+                            </h3>
+                          </div>
+                          <MessageSources sources={message.sources} />
+                        </div>
+                      )}
                       <div className="flex flex-row items-center space-x-2 mt-4">
                         <Layers3 />
                         <h3 className="text-xl font-medium">Related</h3>
