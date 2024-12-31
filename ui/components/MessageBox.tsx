@@ -19,6 +19,7 @@ import MessageSources from './MessageSources';
 //import SearchImages from './SearchImages';
 //import SearchVideos from './SearchVideos';
 import { useSpeech } from 'react-text-to-speech';
+import SponsoredLink from './SponsoredLink';
 
 const MessageBox = ({
   message,
@@ -41,6 +42,12 @@ const MessageBox = ({
 }) => {
   const [parsedMessage, setParsedMessage] = useState(message.content);
   const [speechMessage, setSpeechMessage] = useState(message.content);
+  const keyword =
+    history
+      .filter((keyword) => keyword.role === 'user')
+      .map((keyword) => keyword.content)
+      .flat()
+      .join(' ') || '';
 
   useEffect(() => {
     const regex = /\[(\d+)\]/g;
@@ -185,6 +192,9 @@ const MessageBox = ({
                   </>
                 )}
             </div>
+          </div>
+          <div>
+            <SponsoredLink queryKeyword={keyword} />
           </div>
           {/* <div className="lg:sticky lg:top-20 flex flex-col items-center space-y-3 w-full lg:w-3/12 z-30 h-full pb-4">
             <SearchImages
