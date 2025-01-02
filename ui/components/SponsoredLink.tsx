@@ -37,7 +37,9 @@ const KeywordCampaignComponent: React.FC<KeywordCampaignComponentProps> = ({
           .split(/\s+/)
           .filter((word) => !stopwords.includes(word.toLowerCase()));
 
-        const response = await fetch(`/api/keywords?endpoint=keyword/lists`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/keywords?endpoint=keyword/lists`,
+        );
         const data = await response.json();
 
         let filteredKeywords: any[] = [];
@@ -92,7 +94,7 @@ const KeywordCampaignComponent: React.FC<KeywordCampaignComponentProps> = ({
   const fetchTrafficSourceUrls = async (campaignId: string) => {
     try {
       const response = await fetch(
-        `/api/keywords?endpoint=get-traffic-source-urls&campaignId=${campaignId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/keywords?endpoint=get-traffic-source-urls&campaignId=${campaignId}`,
       );
       const data = await response.json();
 
