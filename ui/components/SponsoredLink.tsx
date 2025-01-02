@@ -12,8 +12,7 @@ const KeywordCampaignComponent: React.FC<KeywordCampaignComponentProps> = ({
   const [keywords, setKeywords] = useState<any[]>([]); // Palabras clave filtradas
   const [campaignId, setCampaignId] = useState<string | null>(null); // ID de la campaña asociada
   const [generatedLinks, setGeneratedLinks] = useState<string[]>([]);
-  const url = 'https://app.crossroads.ai/api/v2/';
-  const token = '7c68c616-a0d3-4c2e-a653-c649debfd541';
+
   const [loading, setLoading] = useState<boolean>(false); // Estado de carga
 
   useEffect(() => {
@@ -38,7 +37,7 @@ const KeywordCampaignComponent: React.FC<KeywordCampaignComponentProps> = ({
           .split(/\s+/)
           .filter((word) => !stopwords.includes(word.toLowerCase()));
 
-        const response = await fetch(`${url}keyword/lists/?key=${token}`);
+        const response = await fetch(`/api/keywords?endpoint=keyword/lists`);
         const data = await response.json();
 
         let filteredKeywords: any[] = [];
@@ -93,7 +92,7 @@ const KeywordCampaignComponent: React.FC<KeywordCampaignComponentProps> = ({
   const fetchTrafficSourceUrls = async (campaignId: string) => {
     try {
       const response = await fetch(
-        `${url}get-traffic-source-urls/?key=${token}&campaign_ids=${campaignId}`,
+        `/api/keywords?endpoint=get-traffic-source-urls&campaignId=${campaignId}`,
       );
       const data = await response.json();
 
